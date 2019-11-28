@@ -17,6 +17,7 @@ import Header from './pages/Header/Header.js'
 import ExpendatureDetails from './pages/Expensive/ExpendatureDetails.js'
 import Setting from './pages/Setting/Setting.js'
 import SelecteMonthExpendature from './pages/Expensive/SelectedMonthExpendature/SelecteMonthExpendature.js'
+import locationMap from './pages/Location/locationMap'
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 // import App from './App.js';

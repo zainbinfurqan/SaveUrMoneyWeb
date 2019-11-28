@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import Loader from '../Loader/Loader.js'
 import login_icn from '../../image/login-icon.png';
 import signup_icn from '../../image/sigup-icon.png'
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 // import Typography from "@material-ui/core/Typography";
 // import CardActions from '@material-ui/core/CardActions';
@@ -57,20 +59,60 @@ const useStyles = makeStyles(theme => ({
   pos: {
     marginBottom: 12
   },
-  h2:{
+  h2: {
     width: 'fit-content',
     float: 'left',
     margin: '15px 15px'
+  },
+  guide_span: {
+    fontWeight: '700'
   }
 }));
+const guideData = [
+  {
+    text_1: 'You can create account simply by register, no google,facebook authentication on this version  you can create acount by any email id on',
+    text_2: ' registeration feature'
+  },
+  {
+    text_1: 'This app is for accontibility for your daily and monthly bases expensives',
+    text_2: ''
+  },
+  {
+    text_1: 'You can insert you expendature on',
+    text_2: 'add expendature',
+    text_3: 'feature with predefine select options or can mannualy enter expendature name and price'
+  },
+  {
+    text_1: 'You can view monthly details of total expendature with total money and expendature details like date, name, price on ',
+    text_2: 'current status month',
+    text_3: 'feature'
+  },
+  {
+    text_1: 'You can delete expendature on ',
+    text_2: 'details expendature',
+    text_3: 'feature'
+  },
+  {
+    text_1: 'You can chnage password or delete your account on',
+    text_2: 'setting',
+    text_3: 'feature'
 
+  },
+  {
+    text_1: 'You can view any month expendature details by select month on',
+    text_2: 'select month',
+    text_3: 'feature'
+  },
+]
 function Home(props) {
   const classes = useStyles();
 
   let [State_, setStateValue] = useState({
     openLoginFlag: false,
     openSignUpFlag: false,
-    loginKeyFlag: ""
+    loginKeyFlag: "",
+    openGuide: false,
+
   });
 
   useEffect(() => {
@@ -96,6 +138,11 @@ function Home(props) {
     props.history.replace("/signup");
   }
 
+  function handleGuide() {
+    setStateValue({ ...State_, openGuide: State_.openGuide ? false : true });
+
+  }
+
   // function close() {
   //   setStateValue({ ...State_, openLoginFlag: false, openSignUpFlag: false });
   // }
@@ -116,11 +163,39 @@ function Home(props) {
               <img src={login_icn} className='home-login-icn' /> <h2 className={classes.h2}>LOGIN</h2>
             </Paper>
             <Paper className={classes.root} onClick={openSignUpPanelHandle}>
-              <img src={signup_icn} className='home-login-icn' /> <h2  className={classes.h2}>  SignUp</h2>
+              <img src={signup_icn} className='home-login-icn' /> <h2 className={classes.h2}>SignUp</h2>
             </Paper>
+            <p style={{ float: 'right', fontWeight: '600', margin: '5px 0px' }} onClick={handleGuide}>Guide</p>
           </CardContent>
+
         </Card>
       )}
+      <Dialog
+        open={State_.openGuide}
+        onClose={handleGuide}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <div>
+            <h5 style={{ textAlign: 'center' }}>Guide</h5>
+            {guideData.map(items => {
+              return (
+
+              <p><span className={classes.guide_span}>-></span>{items.text_1} <span className={classes.guide_span}>{items.text_2}</span> {items.text_3} </p>
+              )
+            })}
+            {/* <p><span className={classes.guide_span}>-></span> You can create account simply by register, no google,facebook authentication on this version  you can create acount by any email id on <span className={classes.guide_span}>registeration feature</span></p>
+            <p><span className={classes.guide_span}>-></span> This app is for accontibility for your daily and monthly bases expensives</p>
+            <p><span className={classes.guide_span}>-></span> You can insert you expendature on add <span className={classes.guide_span}>expendature</span> feature with predefine select options or can mannualy enter expendature name and price</p>
+            <p><span className={classes.guide_span}>-></span> You can view monthly details of total expendature with total money and expendature details like date, name, price on <span>current status month feature</span></p>
+            <p><span className={classes.guide_span}>-></span> You can delete expendature on <span className={classes.guide_span}>details expendature</span> feature</p>
+            <p><span className={classes.guide_span}>-></span> You can chnage password or delete your account on <span className={classes.guide_span}>setting</span> feature</p>
+            <p><span className={classes.guide_span}>-></span> You can view any month expendature details by select month on <span className={classes.guide_span}>select month</span> feature</p> */}
+          </div>
+        </DialogContent>
+
+      </Dialog>
       {/* <Loader openLoaderPanel={true} openLoader={true} /> */}
       {/* {State_.openLoginFlag && (
         <Login open={State_.openLoginFlag} close={close} />
@@ -128,6 +203,7 @@ function Home(props) {
       {State_.openSignUpFlag && (
         <SignUp open={State_.openSignUpFlag} close={close} />
       )} */}
+
     </div>
   );
 }
